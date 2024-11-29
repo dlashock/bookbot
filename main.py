@@ -38,7 +38,5 @@ def sorted_chars(dict):
     list_of_dict = list(dict.items())
     list_of_dict.sort(reverse=True, key=sort_by)
     return list_of_dict
-    
-    #return list(sorted(dict.items(), key=lambda item: item[1], reverse=True))
 
 main()
