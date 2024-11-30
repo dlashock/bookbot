@@ -1,11 +1,37 @@
 def main():
-    book_path = "Books/frankenstein.txt"
-    file_contents = extract_text(book_path)
+    books = [
+        {"Book": "Frankenstein", "Path": "Books/frankenstein.txt"},
+        {"Book": "Romeo & Juliet", "Path": "Books/romeo_&_juliet.txt"},
+        {"Book": "Moby Dick", "Path": "Books/moby_dick.txt"},
+        {"Book": "Little Women", "Path": "Books/little_women.txt"}
+    ]
+
+    print("We have the following books to choose from:\n")
+
+    book_list_count = 0
+    for book in books:
+        book_list_count += 1
+        print(f"{book_list_count}: {book['Book']}")
+    
+    while True:
+        book_choice_input = input("\nWhich book would you like to analyze? ")
+        book_choice_input = int(book_choice_input)
+        try:
+            if 1 <= book_choice_input <= len(books):
+                book_choice = books[book_choice_input - 1]
+                print(f"Ahhh, {book_choice['Book']}, great choice!\n")
+                break
+            else:
+                print(f"Sorry, we don't have that many books! Please enter a number between 1 and {len(books)}")
+        except ValueError:
+            print("Numbers only please!")
+
+    file_contents = extract_text(book_choice['Path'])
     book_length = word_count(file_contents)
     letter_count = char_count(file_contents)
     sorted_count = sorted_chars(letter_count)
     
-    print(f"--- Begin report of {book_path} ---")
+    print(f"--- Begin report of {book_choice['Book']} ---")
     print(f"{book_length} words found in the document\n")
     for count in sorted_count:
         print(f"The '{count[0]}' character was found {count[1]} times")
